@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>node test</title>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<style type="text/css">
+	body,table{
+		font-family: arial;
+		font-size: 13px;
+	}
+	table th{
+		text-align: left;
+		padding: 5px;
+		text-transform: capitalize;
+	}
+	table td{
+		padding: 5px;
+		text-transform: capitalize;
+	}
+	</style>
+</head>
+<body>
+<div>
+	
+</div>
+	<h1>Hello world</h1>
+	<a id="fechData" href="javascript:void(0)">Query</a>
+	<a href="/get3">Get3</a>
+	<a href="/get4">Get4</a>
+<p></p>
+	<table id="tbl" width="100%" border="1" style="border-collapse:collapse">
+		<tr><th>Date joined</th><th>Designation</th><th>Emp name</th><th>Id dept</th></tr>
+	</table>
+
+	<script type="text/javascript">
+	//var result = 9;
+	$('#fechData').on('click', function(){
+		$('#tbl').find('tr').not(':first').remove();
+		$.ajax({
+		  url: "/db?id=1,2,3,4,5,8,9" ,
+		  beforeSend: function( xhr ) {
+		    xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+		  }
+		}).done(function( data ) {
+			var result = $.parseJSON(data);
+			for(var i=0; i<result.length; i++){
+				$('#tbl').append('<tr><td>'+result[i].date_joined+'</td><td>'+result[i].designation+'</td><td>'+result[i].emp_name+'</td><td>'+result[i].id_dept+'</td></tr>');
+			}
+			// debugger;
+		    if ( console && console.log ) {		    	
+		      console.log($.parseJSON(data));
+		    }
+		  });
+	});
+	</script>
+</body>
+</html>
